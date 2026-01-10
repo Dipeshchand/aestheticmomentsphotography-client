@@ -43,7 +43,7 @@ export default function Header() {
 
       {/* Desktop Menu */}
       <ul className="hidden md:flex gap-8 font-normal">
-        <li><Link to="/">Home</Link></li>
+        <li><Link to="/home">Home</Link></li>
         <li><Link to="/gallery">Gallery</Link></li>
         <li><Link to="/portfolio">Portfolio</Link></li>
         <li><Link to="/films">Films</Link></li>
