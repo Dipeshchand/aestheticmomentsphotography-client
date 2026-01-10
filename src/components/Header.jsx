@@ -33,8 +33,12 @@ export default function Header() {
     <header className="fixed top-0 left-0 w-full z-50 px-6 md:px-10 py-4 flex justify-between items-center bg-white/10 backdrop-blur-lg">
       
       {/* Logo */}
-      <h1 className="text-2xl md:text-3xl font-serif font-bold">
-        <Link to="/">Aesthetic Moments</Link>
+      <h1 className="text-2xl md:text-3xl font-serif  ">
+        {/* <Link to="/">Aesthetic Moments</Link>
+         */}
+         <span style={{fontFamily:"light"}}>
+          Aesthetic Moments
+         </span>
       </h1>
 
       {/* Desktop Menu */}
@@ -61,7 +65,7 @@ export default function Header() {
           open ? "max-h-96 py-4" : "max-h-0"
         }`}
       >
-        <ul className="flex flex-row justify-items-center items-center gap-4 font-medium">
+        <ul className="flex flex-row justify-items-center  items-center gap-4 font-medium">
           <li><Link onClick={()=>setOpen(false)} to="/">Home</Link></li>
           <li><Link onClick={()=>setOpen(false)} to="/gallery">Gallery</Link></li>
           <li><Link onClick={()=>setOpen(false)} to="/portfolio">Portfolio</Link></li>

@@ -17,4 +17,19 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family:"light";
+  src: url("./fonts/1Ptug8zYS_SKggPNyC0IT4ttDfA.woff2")format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family:"light1" ;
+  src: url("./fonts/file.woff2")format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 
