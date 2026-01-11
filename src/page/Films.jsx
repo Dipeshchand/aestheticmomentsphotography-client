@@ -25,8 +25,12 @@ export default function Films() {
   return (
     <div className="min-h-screen bg-[#F7F4ED] py-20 px-4 mt-15">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-5xl font-serif text-center mb-12">
-          Our Wedding Films
+        <h1 className="text-4xl md:text-5xl  text-center mb-12"
+        style={{fontFamily:"light"}}>
+          Our Wedding {" "}
+          <span style={{fontFamily:"Seasons1"}} className="text-red-700">
+            Films
+            </span>
         </h1>
 
         {loading && (
