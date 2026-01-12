@@ -49,7 +49,7 @@
 //     <div className="pt-15">
 //       {/* HERO */}
 //       <div className="relative overflow-hidden">
-        
+
 //         <motion.img
 //           src={g4}
 //           style={{ y: heroY }}
@@ -219,9 +219,6 @@
 //   );
 // }
 
-
-
-
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FaWhatsapp, FaInstagram, FaPhoneAlt } from "react-icons/fa";
 
@@ -272,7 +269,6 @@ export default function Home() {
 
   return (
     <div className="pt-15">
-
       {/* FLOATING CONTACT ICONS */}
       <motion.div
         initial={{ opacity: 0, x: 50 }}
@@ -327,11 +323,25 @@ export default function Home() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.25 }}
       >
-        <h2 className="text-3xl md:text-5xl ">
-          <span style={{ fontFamily: "Session3" }}>Wedding </span> experiences that feel like
-          <span className="text-red-700" style={{ fontFamily: "Seasons2" }}> you</span>
+        <h2 className="text-2xl md:text-3xl ">
+          <span style={{ fontFamily: "Session1" }}>Capturing </span> Most
+          Beautiful Moments -
+          <span className="text-red-700" style={{ fontFamily: "light1" }}>
+            {" "}
+            Professional Wedding Portrait Photography
+          </span>
         </h2>
       </motion.div>
+      <div className="flex justify-center mt-4">
+        <a
+          href="https://wa.me/918108569630"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center px-4 py-2 text-sm rounded-full bg-red-800 text-white hover:bg-gray-800 transition no-underline"
+        >
+          Book a Session
+        </a>
+      </div>
 
       {/* PARAGRAPH */}
       <motion.div
@@ -341,7 +351,10 @@ export default function Home() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.25 }}
       >
-        <p className="leading-relaxed max-w-3xl" style={{ fontFamily: "light" }}>
+        <p
+          className="leading-relaxed max-w-3xl"
+          style={{ fontFamily: "light" }}
+        >
           At the heart of our work is a simple belief: your wedding should feel
           like you. So we don’t do templates or repeat ideas. We listen, we
           observe, and we build an experience that feels unmistakably yours.
@@ -450,22 +463,24 @@ export default function Home() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 px-5 mt-10">
-        {["u0yxbwIhiMA", "AassWprjxAs", "COrmja2HDy8", "QeRJlY41m_g"].map((id) => (
-          <motion.div
-            key={id}
-            variants={fadeUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.25 }}
-          >
-            <iframe
-              loading="lazy"
-              src={`https://www.youtube.com/embed/${id}`}
-              className="w-full aspect-video rounded-lg"
-              allowFullScreen
-            />
-          </motion.div>
-        ))}
+        {["u0yxbwIhiMA", "AassWprjxAs", "COrmja2HDy8", "QeRJlY41m_g"].map(
+          (id) => (
+            <motion.div
+              key={id}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.25 }}
+            >
+              <iframe
+                loading="lazy"
+                src={`https://www.youtube.com/embed/${id}`}
+                className="w-full aspect-video rounded-lg"
+                allowFullScreen
+              />
+            </motion.div>
+          )
+        )}
       </div>
     </div>
   );
