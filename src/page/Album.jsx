@@ -8,10 +8,16 @@ export default function Album() {
 
   useEffect(() => {
     async function load() {
-      const albums = await fetch("http://localhost:5000/albums").then(r => r.json());
+      // Get all public albums
+      const albums = await fetch("http://localhost:5000/albums/public")
+        .then(r => r.json());
+
       const found = albums.find(a => a.slug === slug);
       setAlbum(found);
 
+      if (!found) return;
+
+      // Get public photos of album
       const images = await fetch(
         `http://localhost:5000/upload/album/${found._id}`
       ).then(r => r.json());
@@ -22,7 +28,7 @@ export default function Album() {
     load();
   }, [slug]);
 
-  if (!album) return <div>Loading...</div>;
+  if (!album) return <div className="mt-20 text-center">Loading...</div>;
 
   return (
     <div className="mt-28 px-6">
@@ -33,7 +39,8 @@ export default function Album() {
           <img
             key={photo._id}
             src={photo.url}
-            className="w-full block"
+            className="w-full block mb-[1px]"
+            loading="lazy"
           />
         ))}
       </div>

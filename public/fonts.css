@@ -30,6 +30,21 @@
   font-weight: normal;
   font-style: normal;
 }
+/* --- */
 
-
-
+@font-face {
+  font-family:"light2" ;
+  src: url("./fonts/aDjpMND83pDErGXlVEr-Sfk_vArhqVIZ0nv9q090hN8.woff2")format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}@font-face {
+  font-family:"light3" ;
+  src: url("./fonts/lFxvRPuGFG5ktd7P0WRwKhUOjZSKWg4xBWp_C_qQx0o.woff2")format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}@font-face {
+  font-family:"light4" ;
+  src: url("./fonts/WmVKXVcOuffP_qmCpFuyzfk_vArhqVIZ0nv9q090hN8.woff2")format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
