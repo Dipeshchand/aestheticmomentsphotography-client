@@ -4,8 +4,15 @@ export default function Films() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
- const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
- const  CHANNEL_ID = import.meta.env.VITE_YOUTUBE_CHANNEL_ID;
+  const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+  const CHANNEL_ID = import.meta.env.VITE_YOUTUBE_CHANNEL_ID;
+
+  // 🔹 Fix HTML encoded titles like &amp;, &quot;, &#39;
+  function decodeHTML(text) {
+    const txt = document.createElement("textarea");
+    txt.innerHTML = text;
+    return txt.value;
+  }
 
   useEffect(() => {
     fetch(
@@ -25,12 +32,17 @@ export default function Films() {
   return (
     <div className="min-h-screen bg-[#F7F4ED] py-20 px-4 mt-15">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-5xl  text-center mb-12"
-        style={{fontFamily:"light"}}>
-          Our Wedding {" "}
-          <span style={{fontFamily:"Seasons1"}} className="text-red-700">
+        <h1
+          className="text-4xl md:text-5xl text-center mb-12"
+          style={{ fontFamily: "light" }}
+        >
+          Our Wedding{" "}
+          <span
+            style={{ fontFamily: "Seasons1" }}
+            className="text-red-700"
+          >
             Films
-            </span>
+          </span>
         </h1>
 
         {loading && (
@@ -54,14 +66,15 @@ export default function Films() {
                 <iframe
                   className="w-full aspect-video"
                   src={`https://www.youtube.com/embed/${video.id.videoId}`}
-                  title={video.snippet.title}
+                  title={decodeHTML(video.snippet.title)}
                   allowFullScreen
                 ></iframe>
 
                 <div className="p-4">
                   <p className="font-medium line-clamp-2">
-                    {video.snippet.title}
+                    {decodeHTML(video.snippet.title)}
                   </p>
+
                   <p className="text-sm text-gray-500 mt-1">
                     {new Date(video.snippet.publishedAt).toDateString()}
                   </p>

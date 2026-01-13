@@ -1,85 +1,4 @@
-// import { useNavigate } from "react-router-dom";
 
-// import img1 from "../assets/image/g1.jpg"
-// import img2 from "../assets/image/g2.jpg"
-// import img3 from "../assets/image/g3.jpg"
-// import img4 from "../assets/image/g4.jpg"
-// import img5 from "../assets/image/g5.jpg"
-// import img6 from "../assets/image/g6.jpg"
-// import img7 from "../assets/image/g7.jpg"
-// import img8 from "../assets/image/g8.jpg"
-// import img9 from "../assets/image/g9.jpg"
-// import img10 from "../assets/image/g10.jpg"
-// import img11 from "../assets/image/g11.jpg"
-// import img12 from "../assets/image/g12.jpg"
-// import img13 from "../assets/image/g13.jpg"
-// import img14 from "../assets/image/g14.jpg"
-
-
-// export default function IntroPage() {
-//   const navigate = useNavigate();
-
-//   const images =[
-//        img1, img2, img3, img4, img5,
-//     img6, img7, img8, img9,
-//     img10, img11, img12, img13, img14
-//   ]
-
-// let imageIndex = 0;
-
-//   return (
-//     <div className="w-full h-screen ">
-//         {/* overflow-hidden */}
-//       <div
-//         className="
-//           grid
-//           grid-cols-3
-//           grid-rows-5
-//           md:grid-cols-5
-//           md:grid-rows-3
-//           w-full
-//           h-full
-//         "
-//       >
-//         {Array.from({ length: 15 }).map((_, i) => {
-//           // CENTER CELL (index 7)
-//           if (i === 7) {
-//             return (
-//               <div
-//                 key={i}
-//                 className="flex items-center justify-center bg-[#DCCDC2]"
-//               >
-//                 <div className="text-center">
-//                   <h1 className="text-3xl md:text-5xl font-baskervville mb-4">
-//                     Aesthetic Moments
-//                   </h1>  
-//                   <button 
-//                     onClick={() => navigate("/home")}
-//                     className="px-6 py-2.5 bg-[#5A3F33] text-white rounded-full"
-//                   >
-//                     STEP IN
-//                   </button>
-//                 </div>
-//               </div>
-//             );
-//           }
-
-//           const img = images[imageIndex++];
-
-//           return (
-//             <div key={i} className="overflow-hidden">
-//               <img
-//                 src={img}
-//                 alt=""
-//                 className="w-full h-full object-cover"
-//               />
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </div>
-//   );
-// }
 
 
 import { useEffect, useState } from "react";
@@ -132,7 +51,6 @@ export default function IntroPage() {
                   <h1 className="text-3xl md:text-5xl font-baskervville mb-4">
                     Aesthetic Moments
                   </h1>
-
                   <button
                     disabled={!ready}
                     onClick={() => navigate("/home")}
