@@ -15,7 +15,7 @@ export default function Gallery() {
 
   return (
     <div className="mt-31 px-6">
-      <h2 className="text-3xl text-center mb-10">Our Weddings</h2>
+      <h2 className="text-3xl text-center mb-10 bg-gradient-to-r  to-red-400" style={{fontFamily:"light"}}>Our Weddings</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {albums.map(album => (
