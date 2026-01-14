@@ -5,7 +5,7 @@ const API = "https://aesthetic-backend-17tr.onrender.com";
 /* ================= AUTH HEADER ================= */
 function authHeader() {
   const token = localStorage.getItem("token");
-  return token ? { Authorization: Bearer ${token} } : {};
+  return token ? { Authorization: `Bearer ${token}` } : {};
 }
 
 export default function Admin() {
@@ -30,7 +30,7 @@ export default function Admin() {
 
   /* ================= LOGIN ================= */
   async function login() {
-    const res = await fetch(${API}/auth/login, {
+    const res = await fetch(`${API}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -50,7 +50,7 @@ export default function Admin() {
 
   /* ================= API CALLS ================= */
   async function loadAlbums() {
-    const res = await fetch(${API}/albums, { headers: authHeader() });
+    const res = await fetch(`${API}/albums`, { headers: authHeader() });
     if (res.status === 401) return logout();
 
     const data = await res.json();
@@ -60,7 +60,7 @@ export default function Admin() {
   async function createAlbum() {
     if (!title) return alert("Enter album title");
 
-    const res = await fetch(${API}/albums, {
+    const res = await fetch(`${API}/albums`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ export default function Admin() {
     const fd = new FormData();
     fd.append("image", coverFile);
 
-    const res = await fetch(${API}/albums/${selectedAlbum}/cover, {
+    const res = await fetch(`${API}/albums/${selectedAlbum}/cover`, {
       method: "POST",
       headers: authHeader(),
       body: fd,
@@ -97,7 +97,7 @@ export default function Admin() {
     const fd = new FormData();
     fd.append("image", photoFile);
 
-    const res = await fetch(${API}/upload/${selectedAlbum}, {
+    const res = await fetch(`${API}/upload/${selectedAlbum}`, {
       method: "POST",
       headers: authHeader(),
       body: fd,
@@ -111,7 +111,7 @@ export default function Admin() {
     if (!selectedAlbum) return alert("Select album");
     if (!window.confirm("Delete permanently?")) return;
 
-    const res = await fetch(${API}/albums/${selectedAlbum}, {
+    const res = await fetch(`${API}/albums/${selectedAlbum}`, {
       method: "DELETE",
       headers: authHeader(),
     });
