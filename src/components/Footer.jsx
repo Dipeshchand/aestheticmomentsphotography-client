@@ -18,16 +18,12 @@ export default function Footer() {
           <Link to="/about" className="block hover:text-red-500 transition">
             About Us
           </Link>
-
-          <Link to="/contact" className="block hover:text-red-500 transition">
-            Contact Us
-          </Link>
-
+          <a  href="tel:+919347645827" className=" hover:text-red-500 transition"> Contact Us</a>
           <a
             href="tel:+919347645827"
             className="block hover:text-red-500 transition"
           >
-            9347645827
+            810856930
           </a>
         </div>
 
@@ -37,7 +33,7 @@ export default function Footer() {
             Privacy Policy
           </Link>
 
-          <Link to="/terms" className="block hover:text-red-500 transition">
+          <Link to="/privacy-policy" className="block hover:text-red-500 transition">
             Terms & Conditions
           </Link>
         </div>

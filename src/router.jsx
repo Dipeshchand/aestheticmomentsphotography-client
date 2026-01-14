@@ -152,6 +152,7 @@ const Album = lazy(() => import("./page/Album"));
 const Services = lazy(() => import("./page/Services"));
 const Login = lazy(() => import("./page/Login"));
 const Admin = lazy(() => import("./page/Admin"));
+const Privacy = lazy(()=>import("./page/PolicyPrivacy"))
 
 const Loader = () => (
   <div className="h-screen flex items-center justify-center text-lg">
@@ -182,6 +183,7 @@ const router = createBrowserRouter([
       { path: "portfolio", element: <Portfolio /> },
       { path: "portfolio/:slug", element: <Album /> },
       { path: "services", element: <Services /> },
+      {path:"privacy-policy", element:<Privacy />}
     ],
   },
 
