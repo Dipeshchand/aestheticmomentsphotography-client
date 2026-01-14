@@ -19,7 +19,7 @@ export default function Album() {
 
       // Get public photos of album
       const images = await fetch(
-        `http://localhost:5000/upload/album/${found._id}`
+        `https://aesthetic-backend-17tr.onrender.com/upload/album/${found._id}`
       ).then(r => r.json());
 
       setPhotos(images);
