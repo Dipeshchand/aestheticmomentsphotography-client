@@ -51,7 +51,7 @@ export default function Portfolio() {
 
   useEffect(() => {
     async function loadAlbums() {
-      const res = await fetch("http://localhost:5000/albums/public");
+      const res = await fetch("https://aesthetic-backend-17tr.onrender.com/albums/public");
       const data = await res.json();
 
       if (Array.isArray(data)) {
