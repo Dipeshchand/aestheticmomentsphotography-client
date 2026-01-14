@@ -1,339 +1,58 @@
-// // import { useEffect, useState } from "react";
-
-// // const API = "http://localhost:5000";
-
-// // function authHeader() {
-// //   return {
-// //     Authorization: localStorage.getItem("token"),
-// //   };
-// // }
-
-// // export default function Admin() {
-// //   const [title, setTitle] = useState("");
-// //   const [albums, setAlbums] = useState([]);
-// //   const [selectedAlbum, setSelectedAlbum] = useState("");
-// //   const [coverFile, setCoverFile] = useState(null);
-// //   const [photoFile, setPhotoFile] = useState(null);
-
-// //   useEffect(() => {
-// //     if (!localStorage.getItem("token")) {
-// //       window.location.href = "/login";
-// //     } else {
-// //       loadAlbums();
-// //     }
-// //   }, []);
-
-// //   async function loadAlbums() {
-// //     const res = await fetch(`${API}/albums`, {
-// //       headers: authHeader(),
-// //     });
-// //     const data = await res.json();
-// //     setAlbums(data);
-// //   }
-
-// //   async function createAlbum() {
-// //     if (!title) return alert("Enter album title");
-
-// //     await fetch(`${API}/albums`, {
-// //       method: "POST",
-// //       headers: {
-// //         "Content-Type": "application/json",
-// //         ...authHeader(),
-// //       },
-// //       body: JSON.stringify({ title }),
-// //     });
-
-// //     setTitle("");
-// //     loadAlbums();
-// //   }
-
-// //   async function uploadCover() {
-// //     if (!selectedAlbum) return alert("Select an album");
-// //     if (!coverFile) return alert("Choose a cover image");
-
-// //     const fd = new FormData();
-// //     fd.append("image", coverFile);
-
-// //     const res = await fetch(`${API}/albums/${selectedAlbum}/cover`, {
-// //       method: "POST",
-// //       headers: authHeader(),
-// //       body: fd,
-// //     });
-
-// //     const data = await res.json();
-// //     if (!res.ok) return alert(data.error || "Cover upload failed");
-
-// //     alert("✅ Cover uploaded successfully");
-// //     setCoverFile(null);
-// //     loadAlbums();
-// //   }
-
-// //   async function uploadPhoto() {
-// //     if (!selectedAlbum) return alert("Select an album");
-// //     if (!photoFile) return alert("Choose a photo");
-
-// //     const fd = new FormData();
-// //     fd.append("image", photoFile);
-
-// //     const res = await fetch(`${API}/upload/${selectedAlbum}`, {
-// //       method: "POST",
-// //       headers: authHeader(),
-// //       body: fd,
-// //     });
-
-// //     const data = await res.json();
-// //     if (!res.ok) return alert(data.error || "Photo upload failed");
-
-// //     alert("✅ Photo uploaded successfully");
-// //     setPhotoFile(null);
-// //   }
-
-// //   async function deleteAlbum() {
-// //     if (!selectedAlbum) return alert("Select an album");
-// //     if (!window.confirm("Delete this album permanently?")) return;
-
-// //     const res = await fetch(`${API}/albums/${selectedAlbum}`, {
-// //       method: "DELETE",
-// //       headers: authHeader(),
-// //     });
-
-// //     const data = await res.json();
-// //     if (!res.ok) return alert(data.error || "Delete failed");
-
-// //     alert("🗑 Album deleted");
-// //     setSelectedAlbum("");
-// //     loadAlbums();
-// //   }
-
-// //   return (
-// //     <div className="mt-28 px-6 max-w-xl mx-auto space-y-6">
-// //       <h2 className="text-2xl font-semibold text-center">Admin Panel</h2>
-
-// //       {/* Create Album */}
-// //       <input
-// //         placeholder="Album title"
-// //         value={title}
-// //         onChange={(e) => setTitle(e.target.value)}
-// //         className="border p-2 w-full"
-// //       />
-// //       <button onClick={createAlbum} className="bg-black text-white px-4 py-2 w-full">
-// //         Create Album
-// //       </button>
-
-// //       {/* Select Album */}
-// //       <select
-// //         value={selectedAlbum}
-// //         onChange={(e) => setSelectedAlbum(e.target.value)}
-// //         className="border p-2 w-full"
-// //       >
-// //         <option value="">Select Album</option>
-// //         {albums.map((a) => (
-// //           <option key={a._id} value={a._id}>
-// //             {a.title}
-// //           </option>
-// //         ))}
-// //       </select>
-
-// //       {/* Upload Cover */}
-// //       <div className="space-y-2">
-// //         <input type="file" accept="image/*" onChange={(e) => setCoverFile(e.target.files[0])} />
-// //         <button onClick={uploadCover} className="bg-blue-600 text-white px-4 py-2 w-full">
-// //           Upload Cover
-// //         </button>
-// //       </div>
-
-// //       {/* Upload Photo */}
-// //       <div className="space-y-2">
-// //         <input type="file" accept="image/*" onChange={(e) => setPhotoFile(e.target.files[0])} />
-// //         <button onClick={uploadPhoto} className="bg-green-600 text-white px-4 py-2 w-full">
-// //           Upload Photo
-// //         </button>
-// //         <button onClick={deleteAlbum} className="bg-red-600 text-white px-4 py-2 w-full">
-// //           Delete Selected Album
-// //         </button>
-// //       </div>
-// //     </div>
-// //   );
-// // }
-
-// import { useEffect, useState } from "react";
-
-// const API = "http://localhost:5000";
-
-// function authHeader() {
-//   return {
-//     Authorization: localStorage.getItem("token"),
-//   };
-// }
-
-// export default function Admin() {
-//   const [title, setTitle] = useState("");
-//   const [albums, setAlbums] = useState([]);
-//   const [selectedAlbum, setSelectedAlbum] = useState("");
-//   const [coverFile, setCoverFile] = useState(null);
-//   const [photoFile, setPhotoFile] = useState(null);
-
-// useEffect(()=>{
-//   loadAlbums();
-// },[])
-
-//   async function loadAlbums() {
-//     const res = await fetch(`${API}/albums`, {
-//       headers: authHeader(),
-//     });
-//     const data = await res.json();
-//     setAlbums(data);
-//   }
-
-//   async function createAlbum() {
-//     if (!title) return alert("Enter album title");
-
-//     await fetch(`${API}/albums`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//         ...authHeader(),
-//       },
-//       body: JSON.stringify({ title }),
-//     });
-
-//     setTitle("");
-//     loadAlbums();
-//   }
-
-//   async function uploadCover() {
-//     if (!selectedAlbum) return alert("Select an album");
-//     if (!coverFile) return alert("Choose a cover image");
-
-//     const fd = new FormData();
-//     fd.append("image", coverFile);
-
-//     const res = await fetch(`${API}/albums/${selectedAlbum}/cover`, {
-//       method: "POST",
-//       headers: authHeader(),
-//       body: fd,
-//     });
-
-//     const data = await res.json();
-//     if (!res.ok) return alert(data.error || "Cover upload failed");
-
-//     alert("✅ Cover uploaded successfully");
-//     setCoverFile(null);
-//     loadAlbums();
-//   }
-
-//   async function uploadPhoto() {
-//     if (!selectedAlbum) return alert("Select an album");
-//     if (!photoFile) return alert("Choose a photo");
-
-//     const fd = new FormData();
-//     fd.append("image", photoFile);
-
-//     const res = await fetch(`${API}/upload/${selectedAlbum}`, {
-//       method: "POST",
-//       headers: authHeader(),
-//       body: fd,
-//     });
-
-//     const data = await res.json();
-//     if (!res.ok) return alert(data.error || "Photo upload failed");
-
-//     alert("✅ Photo uploaded successfully");
-//     setPhotoFile(null);
-//   }
-
-//   async function deleteAlbum() {
-//     if (!selectedAlbum) return alert("Select an album");
-//     if (!window.confirm("Delete this album permanently?")) return;
-
-//     const res = await fetch(`${API}/albums/${selectedAlbum}`, {
-//       method: "DELETE",
-//       headers: authHeader(),
-//     });
-
-//     const data = await res.json();
-//     if (!res.ok) return alert(data.error || "Delete failed");
-
-//     alert("🗑 Album deleted");
-//     setSelectedAlbum("");
-//     loadAlbums();
-//   }
-
-//   return (
-//     <div className="mt-28 px-6 max-w-xl mx-auto space-y-6 border-1 mb-10 rounded-2xl">
-//       <h2 className="text-2xl font-semibold text-center">Admin Panel</h2>
-
-//       {/* Create Album */}
-//       <input
-//         placeholder="Album title"
-//         value={title}
-//         onChange={(e) => setTitle(e.target.value)}
-//         className="border p-2 w-full"
-//       />
-//       <button onClick={createAlbum} className="bg-black text-white px-4 py-2 w-full">
-//         Create Album
-//       </button>
-
-//       {/* Select Album */}
-//       <select
-//         value={selectedAlbum}
-//         onChange={(e) => setSelectedAlbum(e.target.value)}
-//         className="border p-2 w-full"
-//       >
-//         <option value="">Select Album</option>
-//         {albums.map((a) => (
-//           <option key={a._id} value={a._id}>
-//             {a.title}
-//           </option>
-//         ))}
-//       </select>
-
-//       {/* Upload Cover */}
-//       <div className="space-y-2">
-//         <input type="file" accept="image/*" onChange={(e) => setCoverFile(e.target.files[0])} />
-//         <button onClick={uploadCover} className="bg-blue-600 text-white px-4 py-2 w-full">
-//           Upload Cover
-//         </button>
-//       </div>
-
-//       {/* Upload Photo */}
-//       <div className="space-y-2">
-//         <input type="file" accept="image/*" onChange={(e) => setPhotoFile(e.target.files[0])} />
-//         <button onClick={uploadPhoto} className="bg-green-600 text-white px-4 py-2 w-full">
-//           Upload Photo
-//         </button>
-//         <button onClick={deleteAlbum} className="bg-red-600 text-white px-4 py-2 w-full">
-//           Delete Selected Album
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-
 import { useEffect, useState } from "react";
 
 const API = "https://aesthetic-backend-17tr.onrender.com";
 
+/* ================= AUTH HEADER ================= */
 function authHeader() {
-  return {
-    Authorization: localStorage.getItem("token"),
-  };
+  const token = localStorage.getItem("token");
+  return token ? { Authorization: Bearer ${token} } : {};
 }
 
 export default function Admin() {
+  /* ========== AUTH STATE ========== */
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loggedIn, setLoggedIn] = useState(
+    !!localStorage.getItem("token")
+  );
+
+  /* ========== DATA STATE ========== */
   const [title, setTitle] = useState("");
   const [albums, setAlbums] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState("");
   const [coverFile, setCoverFile] = useState(null);
   const [photoFile, setPhotoFile] = useState(null);
 
+  /* ========== LOAD ALBUMS ONLY WHEN LOGGED IN ========== */
   useEffect(() => {
-    loadAlbums();
-  }, []);
+    if (loggedIn) loadAlbums();
+  }, [loggedIn]);
 
+  /* ================= LOGIN ================= */
+  async function login() {
+    const res = await fetch(${API}/auth/login, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) return alert(data.error || "Login failed");
+
+    localStorage.setItem("token", data.token);
+    setLoggedIn(true);
+  }
+
+  function logout() {
+    localStorage.removeItem("token");
+    setLoggedIn(false);
+  }
+
+  /* ================= API CALLS ================= */
   async function loadAlbums() {
-    const res = await fetch(`${API}/albums`, { headers: authHeader() });
+    const res = await fetch(${API}/albums, { headers: authHeader() });
+    if (res.status === 401) return logout();
+
     const data = await res.json();
     setAlbums(Array.isArray(data) ? data : []);
   }
@@ -341,7 +60,7 @@ export default function Admin() {
   async function createAlbum() {
     if (!title) return alert("Enter album title");
 
-    await fetch(`${API}/albums`, {
+    const res = await fetch(${API}/albums, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -350,147 +69,139 @@ export default function Admin() {
       body: JSON.stringify({ title }),
     });
 
+    if (!res.ok) return alert("Create failed");
     setTitle("");
     loadAlbums();
   }
 
   async function uploadCover() {
-    if (!selectedAlbum) return alert("Select an album");
-    if (!coverFile) return alert("Choose a cover image");
+    if (!selectedAlbum || !coverFile) return alert("Missing data");
 
     const fd = new FormData();
     fd.append("image", coverFile);
 
-    const res = await fetch(`${API}/albums/${selectedAlbum}/cover`, {
+    const res = await fetch(${API}/albums/${selectedAlbum}/cover, {
       method: "POST",
       headers: authHeader(),
       body: fd,
     });
 
-    const data = await res.json();
-    if (!res.ok) return alert(data.error || "Cover upload failed");
-
+    if (!res.ok) return alert("Cover upload failed");
     alert("Cover uploaded");
-    setCoverFile(null);
     loadAlbums();
   }
 
   async function uploadPhoto() {
-    if (!selectedAlbum) return alert("Select an album");
-    if (!photoFile) return alert("Choose a photo");
+    if (!selectedAlbum || !photoFile) return alert("Missing data");
 
     const fd = new FormData();
     fd.append("image", photoFile);
 
-    const res = await fetch(`${API}/upload/${selectedAlbum}`, {
+    const res = await fetch(${API}/upload/${selectedAlbum}, {
       method: "POST",
       headers: authHeader(),
       body: fd,
     });
 
-    const data = await res.json();
-    if (!res.ok) return alert(data.error || "Photo upload failed");
-
+    if (!res.ok) return alert("Photo upload failed");
     alert("Photo uploaded");
-    setPhotoFile(null);
   }
 
   async function deleteAlbum() {
-    if (!selectedAlbum) return alert("Select an album");
-    if (!window.confirm("Delete this album permanently?")) return;
+    if (!selectedAlbum) return alert("Select album");
+    if (!window.confirm("Delete permanently?")) return;
 
-    const res = await fetch(`${API}/albums/${selectedAlbum}`, {
+    const res = await fetch(${API}/albums/${selectedAlbum}, {
       method: "DELETE",
       headers: authHeader(),
     });
 
-    const data = await res.json();
-    if (!res.ok) return alert(data.error || "Delete failed");
-
-    alert("Album deleted");
+    if (!res.ok) return alert("Delete failed");
     setSelectedAlbum("");
     loadAlbums();
   }
 
+  /* ================= LOGIN UI ================= */
+  if (!loggedIn) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="bg-white p-8 rounded-xl shadow-xl space-y-4 w-96">
+          <h2 className="text-2xl font-bold text-center">Admin Login</h2>
+
+          <input
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full border px-4 py-2 rounded-lg"
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border px-4 py-2 rounded-lg"
+          />
+
+          <button
+            onClick={login}
+            className="w-full bg-black text-white py-2 rounded-lg"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  /* ================= DASHBOARD UI ================= */
   return (
     <div className="min-h-screen bg-gray-50 py-20 px-4">
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 space-y-8">
+      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 space-y-6">
 
-        <h2 className="text-3xl font-bold text-center text-gray-800">
-          Admin Dashboard
-        </h2>
-
-        {/* Create Album */}
-        <div className="space-y-3">
-          <label className="text-sm text-gray-600">Album Title</label>
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter album name"
-            className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-black outline-none"
-          />
-          <button
-            onClick={createAlbum}
-            className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition"
-          >
-            Create Album
+        <div className="flex justify-between items-center">
+          <h2 className="text-3xl font-bold">Admin Dashboard</h2>
+          <button onClick={logout} className="text-red-600">
+            Logout
           </button>
         </div>
 
-        {/* Album Selector */}
-        <div className="space-y-2">
-          <label className="text-sm text-gray-600">Select Album</label>
-          <select
-            value={selectedAlbum}
-            onChange={(e) => setSelectedAlbum(e.target.value)}
-            className="w-full border rounded-lg px-4 py-2"
-          >
-            <option value="">Choose album</option>
-            {albums.map((a) => (
-              <option key={a._id} value={a._id}>
-                {a.title}
-              </option>
-            ))}
-          </select>
-        </div>
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Album title"
+          className="w-full border px-4 py-2 rounded-lg"
+        />
 
-        {/* Upload Cover */}
-        <div className="bg-gray-100 p-4 rounded-xl space-y-3">
-          <p className="font-medium">Upload Cover Image</p>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setCoverFile(e.target.files[0])}
-          />
-          <button
-            onClick={uploadCover}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
-          >
-            Upload Cover
-          </button>
-        </div>
-
-        {/* Upload Photos */}
-        <div className="bg-gray-100 p-4 rounded-xl space-y-3">
-          <p className="font-medium">Upload Album Photo</p>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setPhotoFile(e.target.files[0])}
-          />
-          <button
-            onClick={uploadPhoto}
-            className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
-          >
-            Upload Photo
-          </button>
-        </div>
-
-        {/* Delete */}
         <button
-          onClick={deleteAlbum}
-          className="w-full bg-red-600 text-white py-2 rounded-lg hover:bg-red-700"
+          onClick={createAlbum}
+          className="w-full bg-black text-white py-2 rounded-lg"
         >
+          Create Album
+        </button>
+
+        <select
+          value={selectedAlbum}
+          onChange={(e) => setSelectedAlbum(e.target.value)}
+          className="w-full border px-4 py-2 rounded-lg"
+        >
+          <option value="">Select album</option>
+          {albums.map(a => (
+            <option key={a._id} value={a._id}>{a.title}</option>
+          ))}
+        </select>
+
+        <input type="file" onChange={e => setCoverFile(e.target.files[0])} />
+        <button onClick={uploadCover} className="w-full bg-blue-600 text-white py-2 rounded-lg">
+          Upload Cover
+        </button>
+
+        <input type="file" onChange={e => setPhotoFile(e.target.files[0])} />
+        <button onClick={uploadPhoto} className="w-full bg-green-600 text-white py-2 rounded-lg">
+          Upload Photo
+        </button>
+
+        <button onClick={deleteAlbum} className="w-full bg-red-600 text-white py-2 rounded-lg">
           Delete Album
         </button>
 
