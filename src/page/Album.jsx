@@ -9,7 +9,7 @@ export default function Album() {
   useEffect(() => {
     async function load() {
       // Get all public albums
-      const albums = await fetch("http://localhost:5000/albums/public")
+      const albums = await fetch("https://aesthetic-backend-17tr.onrender.com/albums/public")
         .then(r => r.json());
 
       const found = albums.find(a => a.slug === slug);
