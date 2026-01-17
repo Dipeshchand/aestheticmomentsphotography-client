@@ -13,7 +13,7 @@ export default function Header() {
         {/* <Link to="/">Aesthetic Moments</Link>
          */}
          <span style={{fontFamily:"Session"}}>
-          Aesthetic's Moments
+          Aesthetic Moments
          </span>
       </h1>
 
