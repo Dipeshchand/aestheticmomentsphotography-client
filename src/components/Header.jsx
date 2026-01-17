@@ -12,7 +12,7 @@ export default function Header() {
       <h1 className="text-2xl md:text-3xl font-serif  ">
         {/* <Link to="/">Aesthetic Moments</Link>
          */}
-         <span style={{fontFamily:"Session"}}>
+         <span style={{fontFamily:"light1"}}>
           Aesthetic Moments
          </span>
       </h1>
