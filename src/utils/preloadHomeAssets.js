@@ -12,15 +12,15 @@ import g11 from "../assets/image/g11.jpg";
 import g12 from "../assets/image/g12.jpg";
 import g13 from "../assets/image/g13.jpg";
 import g14 from "../assets/image/g14.jpg";
-import vd1 from "../assets/videos/vd1.mp4";
 
 const images = [
-  g1,g2,g3,g4,g5,g6,g7,g8,g9,g10,g11,g12,g13,g14
+  g1, g2, g3, g4, g5, g6, g7,
+  g8, g9, g10, g11, g12, g13, g14
 ];
 
 export function preloadHomeAssets(onProgress) {
   let loaded = 0;
-  const total = images.length + 1; // + video
+  const total = images.length;
 
   const update = () => {
     loaded++;
@@ -31,15 +31,13 @@ export function preloadHomeAssets(onProgress) {
     return new Promise(resolve => {
       const img = new Image();
       img.src = src;
-      img.onload = () => { update(); resolve(); };
+      img.onload = () => {
+        update();
+        resolve();
+      };
+      img.onerror = resolve; // prevent hanging
     });
   });
 
-  const videoPromise = new Promise(resolve => {
-    const video = document.createElement("video");
-    video.src = vd1;
-    video.onloadeddata = () => { update(); resolve(); };
-  });
-
-  return Promise.all([...imagePromises, videoPromise]);
+  return Promise.all(imagePromises);
 }
