@@ -1,5 +1,62 @@
 import { useEffect, useState } from "react";
 
+/* ---------------- Lazy Video Card ---------------- */
+function LazyVideo({ video }) {
+  const [play, setPlay] = useState(false);
+
+  return (
+    <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+      {!play ? (
+        <div
+          className="relative cursor-pointer group"
+          onClick={() => setPlay(true)}
+        >
+          <img
+            src={video.snippet.thumbnails.high.url}
+            alt={video.snippet.title}
+            className="w-full aspect-video object-cover"
+            loading="lazy"
+          />
+
+          {/* Play Button */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-black/60 text-white rounded-full px-5 py-3 text-xl group-hover:scale-110 transition">
+              ▶
+            </div>
+          </div>
+        </div>
+      ) : (
+        <iframe
+          className="w-full aspect-video"
+          src={`https://www.youtube.com/embed/${video.id.videoId}?autoplay=1`}
+          allowFullScreen
+        />
+      )}
+
+      <div className="p-4">
+        <p className="font-medium line-clamp-2">
+          {video.snippet.title}
+        </p>
+        <p className="text-sm text-gray-500 mt-1">
+          {new Date(video.snippet.publishedAt).toDateString()}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+/* ---------------- Skeleton Loader ---------------- */
+function VideoSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="bg-gray-300 h-[220px] rounded-xl"></div>
+      <div className="h-4 bg-gray-300 mt-4 rounded w-3/4"></div>
+      <div className="h-3 bg-gray-300 mt-2 rounded w-1/2"></div>
+    </div>
+  );
+}
+
+/* ---------------- Main Component ---------------- */
 export default function Films() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -7,79 +64,57 @@ export default function Films() {
   const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
   const CHANNEL_ID = import.meta.env.VITE_YOUTUBE_CHANNEL_ID;
 
-  // 🔹 Fix HTML encoded titles like &amp;, &quot;, &#39;
-  function decodeHTML(text) {
-    const txt = document.createElement("textarea");
-    txt.innerHTML = text;
-    return txt.value;
-  }
-
   useEffect(() => {
-    fetch(
-      `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=15`
-    )
-      .then((res) => res.json())
-      .then((data) => {
+    async function loadVideos() {
+      try {
+        const res = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=15`
+        );
+
+        const data = await res.json();
+
         const onlyVideos = data.items.filter(
           (item) => item.id.kind === "youtube#video"
         );
+
         setVideos(onlyVideos);
+      } catch (err) {
+        console.error("YouTube fetch error:", err);
+      } finally {
         setLoading(false);
-      })
-      .catch(() => setLoading(false));
+      }
+    }
+
+    loadVideos();
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F7F4ED] py-20 px-4 mt-15">
+    <div className="min-h-screen bg-[#F7F4ED] py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <h1
           className="text-4xl md:text-5xl text-center mb-12"
           style={{ fontFamily: "light" }}
         >
           Our Wedding{" "}
-          <span
-            style={{ fontFamily: "Seasons1" }}
-            className="text-red-700"
-          >
+          <span className="text-red-700" style={{ fontFamily: "Seasons1" }}>
             Films
           </span>
         </h1>
 
+        {/* Skeleton */}
         {loading && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className="w-full h-[250px] bg-gray-200 animate-pulse rounded-xl"
-              />
+              <VideoSkeleton key={i} />
             ))}
           </div>
         )}
 
+        {/* Videos */}
         {!loading && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {videos.map((video) => (
-              <div
-                key={video.id.videoId}
-                className="bg-white rounded-xl overflow-hidden shadow-lg hover:scale-[1.02] transition"
-              >
-                <iframe
-                  className="w-full aspect-video"
-                  src={`https://www.youtube.com/embed/${video.id.videoId}`}
-                  title={decodeHTML(video.snippet.title)}
-                  allowFullScreen
-                ></iframe>
-
-                <div className="p-4">
-                  <p className="font-medium line-clamp-2">
-                    {decodeHTML(video.snippet.title)}
-                  </p>
-
-                  <p className="text-sm text-gray-500 mt-1">
-                    {new Date(video.snippet.publishedAt).toDateString()}
-                  </p>
-                </div>
-              </div>
+              <LazyVideo key={video.id.videoId} video={video} />
             ))}
           </div>
         )}
