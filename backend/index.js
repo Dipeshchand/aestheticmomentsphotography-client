@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import albumRoutes from "./routes/album.js"
 import uploadRoutes from "./routes/upload.js";
 import authRoutes from "./routes/auth.js";
+import blogRoutes from "./routes/blogRoutes.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/albums", albumRoutes);
 app.use("/upload", uploadRoutes);
 app.use("/auth", authRoutes);
+app.use("/api/blogs", blogRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
