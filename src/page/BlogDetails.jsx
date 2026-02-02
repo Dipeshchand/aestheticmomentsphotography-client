@@ -34,14 +34,16 @@ export default function BlogDetails() {
           <img
             src={blog.image.url}
             alt={blog.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover" 
           />
         </div>
 
         {/* CONTENT */}
         <div className="p-8 md:p-12">
           {/* Title */}
-          <h1 className="text-3xl md:text-4xl font-semibold mb-3 leading-tight">
+          <h1 className="text-3xl md:text-4xl  font-semibold mb-3 leading-tight"
+          style={{fontFamily:"light"}}
+          >
             {blog.title}
           </h1>
 

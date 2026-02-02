@@ -1,160 +1,3 @@
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-
-// export default function AdminBlog() {
-//   const [blogs, setBlogs] = useState([]);
-//   const [title, setTitle] = useState("");
-//   const [excerpt, setExcerpt] = useState("");
-//   const [content, setContent] = useState("");
-//   const [image, setImage] = useState(null);
-//   const [loading, setLoading] = useState(false);
-
-//   // Fetch all blogs
-//   const fetchBlogs = async () => {
-//     const res = await axios.get("http://localhost:5000/api/blogs");
-//     setBlogs(res.data);
-//   };
-
-//   useEffect(() => {
-//     fetchBlogs();
-//   }, []);
-
-//   // Create blog
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     if (!title || !excerpt || !content || !image) {
-//       alert("All fields are required");
-//       return;
-//     }
-
-//     const formData = new FormData();
-//     formData.append("title", title);
-//     formData.append("excerpt", excerpt);
-//     formData.append("content", content);
-//     formData.append("image", image);
-
-//     try {
-//       setLoading(true);
-//       await axios.post("http://localhost:5000/api/blogs", formData,{
-//         headers:{
-//           Authorization: `Bearer ${localStorage.getItem("token")}`,
-//         },
-//       });
-
-//       alert("Blog added successfully!");
-//       setTitle("");
-//       setExcerpt("");
-//       setContent("");
-//       setImage(null);
-
-//       fetchBlogs(); // refresh list
-//     } catch (err) {
-//       alert("Something went wrong");
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   // Delete blog
-//   const deleteBlog = async (id) => {
-//     if (!window.confirm("Delete this blog?")) return;
-
-//     try {
-//       await axios.delete(`http://localhost:5000/api/blogs/${id}`);
-//       fetchBlogs();
-//       alert("Blog deleted");
-//     } catch (err) {
-//       alert("Delete failed");
-//     }
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-100 p-8">
-//       {/* CREATE BLOG */}
-//       <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow mb-12">
-//         <h2 className="text-2xl font-semibold mb-6 text-center">
-//           Add New Blog
-//         </h2>
-
-//         <form onSubmit={handleSubmit} className="space-y-4">
-//           <input
-//             type="text"
-//             placeholder="Blog Title"
-//             className="w-full border p-2 rounded"
-//             value={title}
-//             onChange={(e) => setTitle(e.target.value)}
-//           />
-
-//           <textarea
-//             placeholder="Short description"
-//             className="w-full border p-2 rounded"
-//             rows="3"
-//             value={excerpt}
-//             onChange={(e) => setExcerpt(e.target.value)}
-//           />
-
-//           <textarea
-//             placeholder="Full content"
-//             className="w-full border p-2 rounded"
-//             rows="6"
-//             value={content}
-//             onChange={(e) => setContent(e.target.value)}
-//           />
-
-//           <input
-//             type="file"
-//             onChange={(e) => setImage(e.target.files[0])}
-//           />
-
-//           <button
-//             type="submit"
-//             className="w-full bg-black text-white py-2 rounded"
-//           >
-//             {loading ? "Publishing..." : "Publish Blog"}
-//           </button>
-//         </form>
-//       </div>
-
-//       {/* BLOG LIST */}
-//       <h2 className="text-2xl font-semibold mb-6 text-center">
-//         All Blogs
-//       </h2>
-
-//       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//         {blogs.map((blog) => (
-//           <div
-//             key={blog._id}
-//             className="bg-white rounded-lg shadow overflow-hidden"
-//           >
-//             <img
-//               src={blog.image.url}
-//               className="h-60 w-full object-cover"
-//               alt=""
-//             />
-
-//             <div className="p-4">
-//               <h3 className="font-semibold text-lg">{blog.title}</h3>
-//               <p className="text-sm text-gray-500 mb-3">
-//                 {new Date(blog.createdAt).toISOString().split("T")[0]}
-//               </p>
-
-//               <button
-//                 onClick={() => deleteBlog(blog._id)}
-//                 className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-//               >
-//                 Delete
-//               </button>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -174,22 +17,26 @@ export default function AdminBlog() {
     }
   }, []);
 
-  // Fetch blogs
+  // 📥 Fetch blogs
   const fetchBlogs = async () => {
-    const res = await axios.get("http://localhost:5000/api/blogs");
-    setBlogs(res.data);
+    try {
+      const res = await axios.get("http://localhost:5000/api/blogs");
+      setBlogs(res.data);
+    } catch (err) {
+      console.error("Failed to fetch blogs");
+    }
   };
 
   useEffect(() => {
     fetchBlogs();
   }, []);
 
-  // Create blog
+  // ➕ Create blog
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!title || !excerpt || !content || !image) {
-      alert("All fields required");
+      alert("All fields are required");
       return;
     }
 
@@ -201,99 +48,157 @@ export default function AdminBlog() {
 
     try {
       setLoading(true);
-      await axios.post(
-        "http://localhost:5000/api/blogs",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      await axios.post("http://localhost:5000/api/blogs", formData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
-      alert("Blog added");
+      alert("Blog published successfully");
       setTitle("");
       setExcerpt("");
       setContent("");
       setImage(null);
       fetchBlogs();
-    } catch {
+    } catch (err) {
       alert("Upload failed");
     } finally {
       setLoading(false);
     }
   };
 
-  // Delete blog
+  // 🗑 Delete blog
   const deleteBlog = async (id) => {
-    if (!window.confirm("Delete blog?")) return;
+    if (!window.confirm("Are you sure you want to delete this blog?")) return;
 
-    await axios.delete(
-      `http://localhost:5000/api/blogs/${id}`,
-      {
+    try {
+      await axios.delete(`http://localhost:5000/api/blogs/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      }
-    );
-
-    fetchBlogs();
+      });
+      fetchBlogs();
+    } catch (err) {
+      alert("Delete failed");
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-10">
-      <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow">
-        <h2 className="text-2xl font-bold mb-6 text-center">Add Blog</h2>
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-8">
+      {/* Header */}
+      <div className="max-w-6xl mx-auto mb-10">
+        <h1 className="text-3xl font-bold text-gray-800">
+          Admin Blog Dashboard
+        </h1>
+        <p className="text-gray-600 mt-1">
+          Manage your blogs professionally
+        </p>
+      </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            className="w-full border p-2"
-            placeholder="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+      {/* Add Blog */}
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+        <h2 className="text-xl font-semibold mb-6">➕ Add New Blog</h2>
 
-          <textarea
-            className="w-full border p-2"
-            placeholder="Excerpt"
-            value={excerpt}
-            onChange={(e) => setExcerpt(e.target.value)}
-          />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium mb-1">Title</label>
+            <input
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-black focus:outline-none"
+              placeholder="Enter blog title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+          </div>
 
-          <textarea
-            className="w-full border p-2"
-            placeholder="Content"
-            rows="6"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
+          <div>
+            <label className="block text-sm font-medium mb-1">Excerpt</label>
+            <textarea
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-black focus:outline-none"
+              placeholder="Short summary of the blog"
+              value={excerpt}
+              onChange={(e) => setExcerpt(e.target.value)}
+            />
+          </div>
 
-          <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+          <div>
+            <label className="block text-sm font-medium mb-1">Content</label>
+            <textarea
+              rows="6"
+              className="w-full border rounded-lg p-3 focus:ring-2 focus:ring-black focus:outline-none"
+              placeholder="Write full blog content here..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
+          </div>
 
-          <button className="w-full bg-black text-white py-2">
-            {loading ? "Publishing..." : "Publish"}
+          <div>
+            <label className="block text-sm font-medium mb-2">
+              Cover Image
+            </label>
+            <input
+              type="file"
+              className="block w-full text-sm file:mr-4 file:py-2 file:px-4
+                         file:rounded-lg file:border-0
+                         file:bg-black file:text-white
+                         hover:file:bg-gray-800"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+          </div>
+
+          <button
+            disabled={loading}
+            className="w-full bg-black text-white py-3 rounded-lg font-semibold
+                       hover:bg-gray-800 transition disabled:opacity-60"
+          >
+            {loading ? "Publishing..." : "Publish Blog"}
           </button>
         </form>
       </div>
 
-      <h2 className="text-2xl font-bold text-center my-10">All Blogs</h2>
+      {/* Blog List */}
+      <div className="max-w-6xl mx-auto mt-14">
+        <h2 className="text-2xl font-bold mb-6">📚 All Blogs</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {blogs.map((blog) => (
-          <div key={blog._id} className="bg-white rounded shadow">
-            <img src={blog.image.url} className="h-56 w-full object-cover" />
-            <div className="p-4">
-              <h3 className="font-bold">{blog.title}</h3>
-              <button
-                onClick={() => deleteBlog(blog._id)}
-                className="mt-3 bg-red-600 text-white px-4 py-1 rounded"
+        {blogs.length === 0 ? (
+          <p className="text-gray-500">No blogs found.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogs.map((blog) => (
+              <div
+                key={blog._id}
+                className="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden"
               >
-                Delete
-              </button>
-            </div>
+                <img
+                  src={blog.image.url}
+                  alt={blog.title}
+                  className="h-112 w-full object-cover"
+                />
+
+                <div className="p-5">
+                  <h3 className="font-semibold text-lg mb-2 line-clamp-2">
+                    {blog.title}
+                  </h3>
+
+                  <div className="flex justify-between items-center mt-4">
+                    <button
+                      onClick={() => deleteBlog(blog._id)}
+                      className="text-sm bg-red-600 text-white px-4 py-2 rounded-lg
+                                 hover:bg-red-700 transition"
+                    >
+                      Delete
+                    </button>
+
+                    <span className="text-xs text-gray-400">
+                      #{blog._id.slice(-5)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
 }
+

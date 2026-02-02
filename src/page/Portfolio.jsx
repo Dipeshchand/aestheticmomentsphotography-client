@@ -1,7 +1,161 @@
+
+// // import { useEffect, useState } from "react";
+// // import { Link } from "react-router-dom";
+
+// // /* Skeleton */
+// // function AlbumSkeleton() {
+// //   return (
+// //     <div className="animate-pulse">
+// //       <div className="bg-gray-300 h-[350px] rounded-xl"></div>
+// //       <div className="h-5 bg-gray-300 mt-4 rounded w-3/4"></div>
+// //     </div>
+// //   );
+// // }
+
+// // export default function Portfolio() {
+// //   const [albums, setAlbums] = useState([]);
+// //   const [loading, setLoading] = useState(true);
+
+// //   useEffect(() => {
+// //     async function loadAlbums() {
+// //       try {
+// //         const res = await fetch(
+// //           "https://aesthetic-backend-17tr.onrender.com/albums/public"
+// //         );
+
+// //         const data = await res.json();
+// //         setAlbums(data);
+// //       } catch (err) {
+// //         console.error("Fetch error:", err);
+// //       } finally {
+// //         setLoading(false);
+// //       }
+// //     }
+
+// //     loadAlbums();
+// //   }, []);
+
+// //   return (
+// //     <div className="mt-28 px-6">
+// //       <h2
+// //         className="text-3xl text-center mb-10 bg-gradient-to-r to-red-400"
+// //         style={{ fontFamily: "light" }}
+// //       >
+// //         Our Weddings
+// //       </h2>
+
+// //       {loading && (
+// //         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+// //           {[...Array(6)].map((_, i) => (
+// //             <AlbumSkeleton key={i} />
+// //           ))}
+// //         </div>
+// //       )}
+
+// //       {!loading && (
+// //         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+// //           {albums.map((album) => (
+// //             <Link
+// //               key={album._id}
+// //               to={`/portfolio/${album.slug}`}
+// //               className="group"
+// //             >
+// //               <div className="relative overflow-hidden rounded-xl">
+// //                 <img
+// //                   src={album.coverUrl}
+// //                   className="w-full h-[350px] object-cover group-hover:scale-105 transition"
+// //                   loading="lazy"
+// //                 />
+// //                 <div className="absolute inset-0 bg-black/30 flex items-end p-5">
+// //                   <h3 className="text-white text-xl font-semibold">
+// //                     {album.title}
+// //                   </h3>
+// //                 </div>
+// //               </div>
+// //             </Link>
+// //           ))}
+// //         </div>
+// //       )}
+// //     </div>
+// //   );
+// // }
+
+
+// import { useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
+
+// function AlbumSkeleton() {
+//   return (
+//     <div className="animate-pulse">
+//       <div className="bg-gray-300 h-[350px] rounded-xl"></div>
+//       <div className="h-5 bg-gray-300 mt-4 rounded w-3/4"></div>
+//     </div>
+//   );
+// }
+
+// export default function Portfolio() {
+//   const [albums, setAlbums] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     const loadAlbums = async () => {
+//       try {
+//         const res = await fetch(
+//           "https://aesthetic-backend-17tr.onrender.com/albums/public"
+//         );
+//         const data = await res.json();
+//         setAlbums(data);
+//       } catch (err) {
+//         console.error("Failed to fetch albums", err);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     loadAlbums();
+//   }, []);
+
+//   return (
+//     <div className="mt-28 px-6">
+//      <h2
+//          className="text-3xl text-center mb-10 bg-gradient-to-r to-red-400"
+//          style={{ fontFamily: "light" }}
+//        >
+//         Our Weddings</h2>
+
+//       {loading ? (
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+//           {[...Array(6)].map((_, i) => (
+//             <AlbumSkeleton key={i} />
+//           ))}
+//         </div>
+//       ) : (
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+//           {albums.map((album) => (
+//             <Link key={album._id} to={`/portfolio/${album.slug}`}>
+//               <div className="relative overflow-hidden rounded-xl">
+//                 <img
+//                   src={album.coverUrl}
+//                   className="w-full h-[350px] object-cover hover:scale-105 transition"
+//                 />
+//                 <div className="absolute inset-0 bg-black/30 flex items-end p-5">
+//                   <h3 className="text-white text-xl font-semibold">
+//                     {album.title}
+//                   </h3>
+//                 </div>
+//               </div>
+//             </Link>
+//           ))}
+//         </div>
+//       )}
+//     </div>
+//   );
+// }
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-/* ---------------- Skeleton Component ---------------- */
+/* Skeleton */
 function AlbumSkeleton() {
   return (
     <div className="animate-pulse">
@@ -11,7 +165,6 @@ function AlbumSkeleton() {
   );
 }
 
-/* ---------------- Portfolio Page ---------------- */
 export default function Portfolio() {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,28 +172,15 @@ export default function Portfolio() {
   useEffect(() => {
     async function loadAlbums() {
       try {
-        // ✅ Check cache first
-        const cached = localStorage.getItem("albums");
-
-        if (cached) {
-          setAlbums(JSON.parse(cached));
-          setLoading(false);
-          return;
-        }
-
-        // 🔥 Fetch from API
         const res = await fetch(
-          "https://aesthetic-backend-17tr.onrender.com/albums/public"
+          "https://aesthetic-backend-17tr.onrender.com/albums/public",
+          {
+            cache:"no-store"
+          }
         );
 
         const data = await res.json();
-
-        if (Array.isArray(data)) {
-          setAlbums(data);
-          localStorage.setItem("albums", JSON.stringify(data));
-        } else {
-          console.error("Albums API error:", data);
-        }
+        setAlbums(data);
       } catch (err) {
         console.error("Fetch failed:", err);
       } finally {
@@ -53,14 +193,13 @@ export default function Portfolio() {
 
   return (
     <div className="mt-28 px-6">
-      <h2
-        className="text-3xl text-center mb-10 bg-gradient-to-r to-red-400"
-        style={{ fontFamily: "light" }}
-      >
+      <h1
+          className="text-3xl text-center mb-10 bg-gradient-to-r to-red-400"
+          style={{ fontFamily: "light" }}
+        >
         Our Weddings
-      </h2>
+      </h1>
 
-      {/* 🔥 Skeleton Loader */}
       {loading && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(6)].map((_, i) => (
@@ -69,7 +208,6 @@ export default function Portfolio() {
         </div>
       )}
 
-      {/* ✅ Actual Data */}
       {!loading && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {albums.map((album) => (
