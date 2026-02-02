@@ -30,7 +30,7 @@ export default function BlogDetails() {
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
 
         {/* BLOG IMAGE */}
-        <div className="w-full h-[450px] overflow-hidden">
+        <div className="w-full h-[950px] overflow-hidden">
           <img
             src={blog.image.url}
             alt={blog.title}
