@@ -51,6 +51,7 @@ export default function Header() {
     <li><Link onClick={() => setOpen(false)} to="/films">Films</Link></li>
     <li><Link onClick={() => setOpen(false)} to="/about">About</Link></li>
     <li><Link onClick={() => setOpen(false)} to="/privacy-policy">Policy/Privacy</Link></li>
+    <li><Link onClick={() => setOpen(false)} to="/blogs">Blogs</Link></li>
   </ul>
 </div>
 
