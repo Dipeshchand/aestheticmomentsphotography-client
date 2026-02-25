@@ -7,7 +7,7 @@ function Blog() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/blogs")
+      .get("https://aesthetic-backend-17tr.onrender.com/api/blogs")
       .then((res) => setBlogs(res.data))
       .catch((err) => console.log(err));
   }, []);
