@@ -48,7 +48,7 @@ export default function AdminBlog() {
 
     try {
       setLoading(true);
-      await axios.post("http://localhost:5000/api/blogs", formData, {
+      await axios.post("https://aesthetic-backend-17tr.onrender.com/api/blogs", formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

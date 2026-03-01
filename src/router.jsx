@@ -5,6 +5,7 @@ import App from "./App";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 
+
 const IntroPage = lazy(() => import("./page/IntroPage"));
 const Home = lazy(() => import("./page/Home"));
 const About = lazy(() => import("./page/About"));
@@ -19,6 +20,7 @@ const Privacy = lazy(() => import("./page/PolicyPrivacy"));
 const Blog = lazy(() => import("./page/Blog"));
 const BlogDetails = lazy(() => import("./page/BlogDetails"));
 const AdminBlog = lazy(() => import("./page/AdminBlog"));
+
 
 const Loader = () => (
   <div className="h-screen flex items-center justify-center text-lg">
