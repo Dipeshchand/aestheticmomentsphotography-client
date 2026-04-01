@@ -20,7 +20,7 @@ export default function AdminBlog() {
   // 📥 Fetch blogs
   const fetchBlogs = async () => {
     try {
-      const res = await axios.get("https://aesthetic-backend-17tr.onrender.com/api/blogs");
+      const res = await axios.get("http://localhost:5000/api/blogs");
       setBlogs(res.data);
     } catch (err) {
       console.error("Failed to fetch blogs");
@@ -48,7 +48,7 @@ export default function AdminBlog() {
 
     try {
       setLoading(true);
-      await axios.post("https://aesthetic-backend-17tr.onrender.com/api/blogs", formData, {
+      await axios.post("http://localhost:5000/api/blogs", formData, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -70,9 +70,9 @@ export default function AdminBlog() {
   // 🗑 Delete blog
   const deleteBlog = async (id) => {
     if (!window.confirm("Are you sure you want to delete this blog?")) return;
-
+      // https://aesthetic-backend-17tr.onrender.com
     try {
-      await axios.delete(`https://aesthetic-backend-17tr.onrender.com/api/blogs/${id}`, {
+      await axios.delete(`http://localhost:5000/api/blogs/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

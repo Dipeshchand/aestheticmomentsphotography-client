@@ -19,7 +19,7 @@ export default function Portfolio() {
     async function loadAlbums() {
       try {
         const res = await fetch(
-          "https://aesthetic-backend-17tr.onrender.com/albums/public",
+          "http://localhost:5000/albums/public",
           {
             cache:"no-store"
           }

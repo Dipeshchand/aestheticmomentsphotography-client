@@ -5,7 +5,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   async function handleLogin() {
-    const res = await fetch("https://aesthetic-backend-17tr.onrender.com/auth/login", {
+    const res = await fetch("http://localhost:5000/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })
