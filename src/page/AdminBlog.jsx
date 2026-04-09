@@ -16,6 +16,7 @@ export default function AdminBlog() {
       window.location.href = "/login";
     }
   }, []);
+// http://localhost:5000
 
   // 📥 Fetch blogs
   const fetchBlogs = async () => {

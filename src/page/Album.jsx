@@ -7,6 +7,8 @@ export default function Album() {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
+    // https://aesthetic-backend-17tr.onrender.com
+    // http://localhost:5000
     async function load() {
       // Get all public albums
       const albums = await fetch("https://aesthetic-backend-17tr.onrender.com/albums/public")
