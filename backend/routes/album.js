@@ -4,6 +4,7 @@ import Photo from "../models/Photo.js";
 import multer from "multer";
 import cloudinary from "../cloudinary.js";
 import auth from "../middleware/auth.js";
+import fs from "fs";
 
 const router = express.Router();
 
