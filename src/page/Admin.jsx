@@ -227,7 +227,7 @@
 
 import { useEffect, useState } from "react";
 
-const API = "https://aesthetic-backend-17tr.onrender.com";
+const API = "http://localhost:5000";
 
 /* ================= AUTH HEADER ================= */
 function authHeader() {

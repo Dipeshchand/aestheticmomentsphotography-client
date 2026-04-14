@@ -10,16 +10,17 @@ function AlbumSkeleton() {
     </div>
   );
 }
-
+// http://localhost:5000
+// https://aesthetic-backend-17tr.onrender.com
 export default function Portfolio() {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadAlbums() {
-      try {
+      try { 
         const res = await fetch(
-          "https://aesthetic-backend-17tr.onrender.com/albums/public",
+          "http://localhost:5000/albums/public",
           {
             cache:"no-store"
           }

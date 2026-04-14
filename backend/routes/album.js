@@ -10,7 +10,7 @@ const router = express.Router();
 const upload = multer({
   dest: "uploads/",
   limits: { fileSize: 10 * 1024 * 1024 }
-});
+}); 
 
 /* ================== PUBLIC ================== */
 
@@ -45,22 +45,54 @@ router.post("/", auth, async (req, res) => {
 });
 
 // Upload album cover
+// router.post("/:id/cover", auth, upload.single("image"), async (req, res) => {
+//   try {
+//     if (!req.file) return res.status(400).json({ error: "No file" });
+
+//     const album = await Album.findById(req.params.id);
+
+//     const result = await cloudinary.uploader.upload(req.file.path, {
+//       folder: `covers/${album._id}`
+//     });
+
+//     album.coverUrl = result.secure_url;
+//     album.coverPublicId = result.public_id;
+//     await album.save();
+
+//     res.json(album);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
 router.post("/:id/cover", auth, upload.single("image"), async (req, res) => {
   try {
-    if (!req.file) return res.status(400).json({ error: "No file" });
+    if (!req.file) {
+      return res.status(400).json({ error: "No file selected" });
+    }
 
     const album = await Album.findById(req.params.id);
+
+    if (!album) {
+      fs.unlinkSync(req.file.path);
+      return res.status(404).json({ error: "Album not found" });
+    }
 
     const result = await cloudinary.uploader.upload(req.file.path, {
       folder: `covers/${album._id}`
     });
 
+    fs.unlinkSync(req.file.path);
+
     album.coverUrl = result.secure_url;
     album.coverPublicId = result.public_id;
+
     await album.save();
 
     res.json(album);
+
   } catch (err) {
+    console.error("Cover upload failed:", err);
     res.status(500).json({ error: err.message });
   }
 });
