@@ -9,7 +9,7 @@ export default function BlogDetails() {
   useEffect(() => {
     const fetchBlog = async () => {
       const res = await axios.get(
-        `https://aesthetic-backend-17tr.onrender.com/api/blogs/${slug}`
+        `https://aestheticmomentsphotography-client.onrender.com/api/blogs/${slug}`
       );
       setBlog(res.data);
     };
