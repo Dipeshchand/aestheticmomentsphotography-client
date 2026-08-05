@@ -61,6 +61,13 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.error(err));
 
+  app.get("/health",(req,res)=>{
+    res.status(200).json({
+      success:true,
+      message:"Server is running"
+    })
+  })
+
 app.listen(5000, () => {
   console.log("Backend running on port 5000");
 });
