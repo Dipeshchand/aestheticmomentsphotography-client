@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { preloadHomeAssets } from "../utils/preloadHomeAssets";
@@ -23,16 +22,27 @@ export default function IntroPage() {
   const [progress, setProgress] = useState(0);
   const [ready, setReady] = useState(false);
 
-  useEffect(() => {
-    preloadHomeAssets(setProgress).then(() => {
-      setReady(true);
-    });
-  }, []);
+ useEffect(() => {
+  preloadHomeAssets(setProgress).then(() => {
+    navigate("/home");
+  });
+}, [navigate]);
 
   const images = [
-    img1,img2,img3,img4,img5,
-    img6,img7,img8,img9,
-    img10,img11,img12,img13,img14
+    img1,
+    img2,
+    img3,
+    img4,
+    img5,
+    img6,
+    img7,
+    img8,
+    img9,
+    img10,
+    img11,
+    img12,
+    img13,
+    img14,
   ];
 
   let imageIndex = 0;
@@ -40,26 +50,18 @@ export default function IntroPage() {
   return (
     <div className="w-full h-screen">
       <div className="grid grid-cols-3 grid-rows-5 md:grid-cols-5 md:grid-rows-3 w-full h-full">
-
         {Array.from({ length: 15 }).map((_, i) => {
           if (i === 7) {
             return (
-              <div key={i} className="flex items-center justify-center bg-[#DCCDC2]">
+              <div
+                key={i}
+                className="flex items-center justify-center bg-[#DCCDC2]"
+              >
                 <div className="text-center">
                   <h1 className="text-3xl md:text-5xl font-baskervville mb-4">
                     Aesthetic Moments
                   </h1>
-                  <button
-                    disabled={!ready}
-                    onClick={() => navigate("/home")}
-                    className={`px-6 py-2.5 rounded-full text-white transition-all ${
-                      ready
-                        ? "bg-[#5A3F33] hover:scale-105"
-                        : "bg-gray-400 cursor-not-allowed"
-                    }`}
-                  >
-                    {ready ? "STEP IN" : `Loading ${progress}%`}
-                  </button>
+                  <p className="text-lg text-[#5A3F33]">Loading {progress}%</p>
                 </div>
               </div>
             );
