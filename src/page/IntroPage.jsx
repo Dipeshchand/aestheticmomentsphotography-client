@@ -22,12 +22,11 @@ export default function IntroPage() {
   const [progress, setProgress] = useState(0);
   const [ready, setReady] = useState(false);
 
- useEffect(() => {
-  preloadHomeAssets(setProgress).then(() => {
-    navigate("/home");
-  });
-}, [navigate]);
-
+  useEffect(() => {
+    preloadHomeAssets(setProgress).then(() => {
+      navigate("/home");
+    });
+  }, [navigate]);
   const images = [
     img1,
     img2,

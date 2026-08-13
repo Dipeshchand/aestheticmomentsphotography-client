@@ -5,7 +5,6 @@ import App from "./App";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 
-
 const IntroPage = lazy(() => import("./page/IntroPage"));
 const Home = lazy(() => import("./page/Home"));
 const About = lazy(() => import("./page/About"));
@@ -20,7 +19,7 @@ const Privacy = lazy(() => import("./page/PolicyPrivacy"));
 const Blog = lazy(() => import("./page/Blog"));
 const BlogDetails = lazy(() => import("./page/BlogDetails"));
 const AdminBlog = lazy(() => import("./page/AdminBlog"));
-
+const InquireForm = lazy(() => import("./page/InquireForm"));
 
 const Loader = () => (
   <div className="h-screen flex items-center justify-center text-lg">
@@ -49,7 +48,7 @@ const router = createBrowserRouter([
       { path: "portfolio", element: <Portfolio /> },
       { path: "portfolio/:slug", element: <Album /> },
       { path: "services", element: <Services /> },
-      
+    
       { path: "blogs", element: <Blog /> },
       { path: "blogs/:slug", element: <BlogDetails /> },
 
@@ -97,26 +96,26 @@ const router = createBrowserRouter([
   // },
 
   {
-  element: <ProtectedRoute />,
-  children: [
-    {
-      path: "/admin",
-      element: (
-        <Suspense fallback={<Loader />}>
-          <Admin />
-        </Suspense>
-      ),
-    },
-    {
-      path: "/admin/blog",
-      element: (
-        <Suspense fallback={<Loader />}>
-          <AdminBlog />
-        </Suspense>
-      ),
-    },
-  ],
-},
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/admin",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <Admin />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/admin/blog",
+        element: (
+          <Suspense fallback={<Loader />}>
+            <AdminBlog />
+          </Suspense>
+        ),
+      },
+    ],
+  },
 ]);
 
 export default router;

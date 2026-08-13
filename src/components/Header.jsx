@@ -1,9 +1,11 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import InquireForm from "../page/InquireForm";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [showInquireForm, setShowInquireForm] = useState(false);
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 px-6 md:px-10 rounded-3 py-4 flex justify-between items-center bg-white/10 backdrop-blur-lg">
@@ -26,6 +28,9 @@ export default function Header() {
         <li><Link to="/about">About</Link></li>
         <li> <Link to="/blogs">Blog</Link></li>
         <li><Link to="/privacy-policy">Privacy / Policy</Link></li>
+        <li>
+          <button onClick={()=>setShowInquireForm(true)}>Inquire</button>
+        </li>
       </ul>
 
       {/* Hamburger Button */}
@@ -51,11 +56,18 @@ export default function Header() {
     <li><Link onClick={() => setOpen(false)} to="/films">Films</Link></li>
     <li><Link onClick={() => setOpen(false)} to="/about">About</Link></li>
     <li><Link onClick={() => setOpen(false)} to="/privacy-policy">Policy/Privacy</Link></li>
-    <li><Link onClick={() => setOpen(false)} to="/blogs">Blogs</Link></li>
+    <li onClick={()=>{
+      setOpen(false);
+      setShowInquireForm(true);
+    }}>Inquire</li>
+
   </ul>
 </div>
-
-
+     {showInquireForm && (
+        <InquireForm
+          onClose={() => setShowInquireForm(false)}
+        />
+      )}
     </header>
   );
 }
