@@ -49,7 +49,7 @@ export default function Header() {
   rounded-b-2xl
   ${open ? "max-h-96 py-4" : "max-h-0"}`}
 >
-  <ul className="flex flex-row justify-center items-center gap-4 font-medium">
+  <ul className="flex flex-row flex-wrap justify-center items-center gap-4 font-medium">
     <li><Link onClick={() => setOpen(false)} to="/">Home</Link></li>
     <li><Link onClick={() => setOpen(false)} to="/gallery">Gallery</Link></li>
     <li><Link onClick={() => setOpen(false)} to="/portfolio">Portfolio</Link></li>
